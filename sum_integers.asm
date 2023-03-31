@@ -1,14 +1,28 @@
 %include "io.inc"
 
 section .data
-    sum: db "Sum: %d", 10, 0
+    num1: dd 12
+    num2: dd 23
+    vals: db "EAX: %d added to EBX: %d", 10, 0
+    sum: db "Sum is: %d", 10, 0
 
 global _main
 
 section .text
 _main:
-    mov eax, 3
-    mov ebx, 8
+    mov ebp, esp
+    
+    mov eax, dword[num1]
+    mov ebx, dword[num2]
+    
+    push ebx
+    push eax
+    push vals
+    call printf
+    
+    add esp, 4
+    pop eax
+    pop ebx
     
     add eax, ebx
     
